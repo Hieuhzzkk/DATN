@@ -1213,11 +1213,11 @@ tbody tr td:last-child {
 }
 .table-shop .product-add {
   color: var(--white);
-  background: var(--primary);
+  background: rgb(138, 138, 138);
 }
 .table-shop .product-add1 {
   color: var(--white);
-  background: var(--primary);
+  background: rgb(138, 138, 138);
 }
 .table-shop .action-plus i,
 .table-shop .action-minus i {
@@ -4223,11 +4223,11 @@ tbody tr td:last-child {
 .cart-total i {
   font-size: 20px;
   margin-right: 8px;
-  color: var(--primary);
+  color: rgb(138, 138, 138);
 }
 .cart-total span {
   font-weight: 500;
-  color: var(--primary);
+  color: rgb(138, 138, 138);
   text-transform: capitalize;
 }
 .cart-close {
@@ -4256,7 +4256,7 @@ tbody tr td:last-child {
 }
 .cart-close i:hover {
   color: var(--white);
-  background: var(--primary);
+  background: rgb(138, 138, 138);
 }
 .cart-list {
   height: 100%;
@@ -4378,12 +4378,12 @@ tbody tr td:last-child {
   height: 30px;
   font-size: 14px;
   border-radius: 5px;
-  color: var(--primary);
+  color: rgb(138, 138, 138);
   background: var(--chalk);
 }
 .cart-action-group h6 {
   font-weight: 500;
-  color: var(--primary);
+  color: rgb(138, 138, 138);
 }
 .cart-footer {
   padding: 20px 15px 0px;
@@ -4446,7 +4446,7 @@ tbody tr td:last-child {
 .cart-checkout-btn {
   padding: 10px 0px;
   border-radius: 8px;
-  background: var(--primary);
+  background: rgb(138, 138, 138);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
