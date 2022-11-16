@@ -10,7 +10,7 @@
 }
 
 .checkout-charge ul {
-    border-top: 3px solid var(--primary)
+    border-top: 3px solid rgb(138, 138, 138)
 }
 
 .checkout-charge ul li {
@@ -37,7 +37,7 @@
 .checkout-charge ul li:last-child span {
     font-size: 18px;
     font-weight: 500;
-    color: var(--primary)
+    color: rgb(138, 138, 138)
 }
 
 .checkout-charge ul li span {
