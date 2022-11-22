@@ -161,7 +161,9 @@
                         <div class="form-group">
                             <input
                                 type="text"
-                                th:field="*{address}"
+                                th:value="${user.address}"
+                                id ="address"
+                                name = "address"
                                 class="form-control"
                                 placeholder="Địa chỉ"
                                 required="required"
@@ -170,8 +172,10 @@
                       
                         <div class="form-group">
                             <input
-                                type="tel"
-                                th:field="*{phone}"
+                                type="text"
+                                th:value = "${user.sdt}"
+                                id ="sdt"
+                                name = "sdt"
                                 class="form-control"
                                 placeholder="Số điện thoại"
                                 required="required"

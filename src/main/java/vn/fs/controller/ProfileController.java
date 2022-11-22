@@ -15,13 +15,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.fs.commom.CommomDataService;
+import vn.fs.entities.Category;
 import vn.fs.entities.Order;
 import vn.fs.entities.OrderDetail;
 import vn.fs.entities.User;
@@ -75,6 +80,23 @@ public class ProfileController extends CommomController{
 
 		return "web/profile";
 	}
+	
+	@PostMapping(value = "/updateUser")
+	public String updateUser(@Validated @ModelAttribute("user") User user, ModelMap model,
+			BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("error", "failure");
+
+			return "/profile";
+		}
+
+		userRepository.save(user);
+		model.addAttribute("message", "successful!");
+
+		return "redirect:/profile";
+	}
+
 
 	public Page<Order> findPaginated(Pageable pageable, User user) {
 
