@@ -33,6 +33,8 @@ public class User implements Serializable{
 	private Long userId;
 	private String name;
 	private String email;
+	private String sdt;
+	private String address;
 	private String password;
 	private String avatar;
 	@Temporal(TemporalType.DATE)
@@ -51,12 +53,14 @@ public class User implements Serializable{
 		super();
 	}
 
-	public User(Long userId, String name, String email, String password, String avatar, Date registerDate,
-			Boolean status, Collection<Role> roles) {
+	public User(Long userId, String name, String email, String sdt, String address, String password, String avatar,
+			Date registerDate, Boolean status, Collection<Role> roles) {
 		super();
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
+		this.sdt = sdt;
+		this.address = address;
 		this.password = password;
 		this.avatar = avatar;
 		this.registerDate = registerDate;
@@ -86,6 +90,22 @@ public class User implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSdt() {
+		return sdt;
+	}
+
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getPassword() {
@@ -127,5 +147,7 @@ public class User implements Serializable{
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
+	
+	
 
 }
