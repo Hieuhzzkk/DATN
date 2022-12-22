@@ -37,12 +37,15 @@ public class OrderExcelExporter {
 		cell.setCellValue("Mã đơn hàng");
 		
 		cell = row.createCell(1);
-		cell.setCellValue("Tổng tiền");
+		cell.setCellValue("Ngày đặt hàng");
 		
 		cell = row.createCell(2);
-		cell.setCellValue("Số điện thoại");
+		cell.setCellValue("Tổng tiền");
 		
 		cell = row.createCell(3);
+		cell.setCellValue("Số điện thoại");
+		
+		cell = row.createCell(4);
 		cell.setCellValue("Địa chỉ");
 
 	}
@@ -56,12 +59,15 @@ public class OrderExcelExporter {
 			cell.setCellValue(order.getOrderId());
 			
 			cell = row.createCell(1);
-			cell.setCellValue(order.getAmount());
+			cell.setCellValue(order.getOrderDate());
 			
 			cell = row.createCell(2);
+			cell.setCellValue(order.getAmount());
+			
+			cell = row.createCell(3);
 			cell.setCellValue(order.getPhone());
 
-			cell = row.createCell(3);
+			cell = row.createCell(4);
 			cell.setCellValue(order.getAddress());
 
 		}

@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 import vn.fs.entities.CartItem;
 import vn.fs.entities.Product;
 
-/**
- * @author DongTHD
- *
- */
+
 @Service
 public interface ShoppingCartService {
 
@@ -27,5 +24,22 @@ public interface ShoppingCartService {
 	void add(CartItem item);
 
 	void remove(Product product);
+
+	void add2(CartItem item, Product product);
+
+
+
+	CartItem update2(Long id, int quantity1);
+
+	CartItem update3(Long id, int quantity, Product product);
+
+
+	CartItem update4(Long id, int quantity);
+
+	CartItem update(Long id, int quantity, CartItem item);
+
+	void getId(CartItem item);
+
+
 
 }

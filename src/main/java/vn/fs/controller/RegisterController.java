@@ -22,10 +22,6 @@ import vn.fs.entities.User;
 import vn.fs.repository.UserRepository;
 import vn.fs.service.SendMailService;
 
-/**
- * @author DongTHD
- *
- */
 @Controller
 public class RegisterController {
 
@@ -79,6 +75,7 @@ public class RegisterController {
 			dto.setStatus(true);
 			dto.setAvatar("user.png");
 			dto.setRoles(Arrays.asList(new Role("ROLE_USER")));
+			//dto.setSdt();
 			userRepository.save(dto);
 
 			session.removeAttribute("otp");

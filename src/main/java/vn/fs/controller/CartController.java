@@ -2,6 +2,7 @@ package vn.fs.controller;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +14,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
@@ -35,13 +39,11 @@ import vn.fs.entities.User;
 import vn.fs.repository.OrderDetailRepository;
 import vn.fs.repository.OrderRepository;
 import vn.fs.service.PaypalService;
+import vn.fs.service.ProductService;
 import vn.fs.service.ShoppingCartService;
 import vn.fs.util.Utils;
 
-/**
- * @author DongTHD
- *
- */
+
 @Controller
 public class CartController extends CommomController {
 
@@ -62,7 +64,9 @@ public class CartController extends CommomController {
 
 	@Autowired
 	OrderDetailRepository orderDetailRepository;
-
+	@Autowired
+	ProductService productService;
+	
 	public Order orderFinal = new Order();
 
 	public static final String URL_PAYPAL_SUCCESS = "pay/success";
@@ -87,9 +91,10 @@ public class CartController extends CommomController {
 		return "web/shoppingCart_checkout";
 	}
 
-	// add cartItem
-	@GetMapping(value = "/addToCart")
-	public String add(@RequestParam("productId") Long productId, HttpServletRequest request, Model model) {
+	
+	@GetMapping(value = "/addToCart/{productId}/{quantity}")
+	public String add(@PathVariable("productId") Long productId, @PathVariable("quantity") Integer quantity,
+			HttpServletRequest request, Model model, RedirectAttributes attributes) {
 
 		Product product = productRepository.findById(productId).orElse(null);
 
@@ -97,18 +102,40 @@ public class CartController extends CommomController {
 		Collection<CartItem> cartItems = shoppingCartService.getCartItems();
 		if (product != null) {
 			CartItem item = new CartItem();
-			BeanUtils.copyProperties(product, item);
-			item.setQuantity(1);
+			item.setQuantity(item.getQuantity() + quantity);
 			item.setProduct(product);
 			item.setId(productId);
-			shoppingCartService.add(item);
+			shoppingCartService.add2(item, product);
 		}
 		session.setAttribute("cartItems", cartItems);
 		model.addAttribute("totalCartItems", shoppingCartService.getCount());
 
 		return "redirect:/products";
 	}
-
+	
+	@PostMapping("/update")
+	public String update(@RequestParam(value =  "id") Long id , @RequestParam("quantity1") 
+	Integer quantity1) {
+		try {
+			//shoppingCartService.update3(id, quantity,product);
+			//shoppingCartService.update(productId, quantity);
+			shoppingCartService.update2(id, quantity1);
+			//shoppingCartService.update(id, quantity1, item);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/products";
+	}
+	@GetMapping("/updateCheckout/{id}/{quantity}")
+	public String updateCheckout(@PathVariable("id") Long id, @PathVariable("quantity") Integer quantity) {
+		try {
+			shoppingCartService.update2(id, quantity);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/checkout";
+	}
 	// delete cartItem
 	@SuppressWarnings("unlikely-arg-type")
 	@GetMapping(value = "/remove/{id}")
@@ -210,7 +237,7 @@ public class CartController extends CommomController {
 		}
 
 		// sendMail
-		commomDataService.sendSimpleEmail(user.getEmail(), "Greeny-Shop Xác Nhận Đơn hàng", "aaaa", cartItems,
+		commomDataService.sendSimpleEmail(user.getEmail(), "Otis-Shop Xác Nhận Đơn hàng", "aaaa", cartItems,
 				totalPrice, order);
 
 		shoppingCartService.clear();
@@ -260,7 +287,7 @@ public class CartController extends CommomController {
 				}
 
 				// sendMail
-				commomDataService.sendSimpleEmail(user.getEmail(), "Greeny-Shop Xác Nhận Đơn hàng", "aaaa", cartItems,
+				commomDataService.sendSimpleEmail(user.getEmail(), "Otis-Shop Xác Nhận Đơn hàng", "aaaa", cartItems,
 						totalPrice, orderFinal);
 
 				shoppingCartService.clear();

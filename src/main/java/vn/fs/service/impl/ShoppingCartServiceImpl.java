@@ -10,10 +10,7 @@ import vn.fs.entities.CartItem;
 import vn.fs.entities.Product;
 import vn.fs.service.ShoppingCartService;
 
-/**
- * @author DongTHD
- *
- */
+
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
@@ -22,20 +19,78 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public void add(CartItem item) {
 		CartItem existedItem = map.get(item.getId());
-
+		
 		if (existedItem != null) {
 			existedItem.setQuantity(item.getQuantity() + existedItem.getQuantity());
+			
 			existedItem.setTotalPrice(item.getTotalPrice() + existedItem.getUnitPrice() * existedItem.getQuantity());
 		} else {
 			map.put(item.getId(), item);
 		}
 	}
-
+	
+	@Override
+	public void add2(CartItem item, Product product) {
+		CartItem existedItem = map.get(item.getId());
+		if (existedItem != null) {
+			existedItem.setQuantity(item.getQuantity() + existedItem.getQuantity());
+			if (existedItem.getQuantity()> product.getQuantity()) {
+				existedItem.setQuantity(product.getQuantity());
+			}
+			existedItem.setTotalPrice(item.getTotalPrice() + existedItem.getUnitPrice() * existedItem.getQuantity());
+		} else {
+			map.put(item.getId(), item);
+		}
+		
+	}
+	
+	@Override
+	public CartItem update(Long id, int quantity,CartItem item) {
+	
+		CartItem cartItem = map.get(item.getId());
+		
+		cartItem.setQuantity(quantity);
+		
+		return cartItem;
+	}
+	@Override
+	public CartItem update4(Long id, int quantity) {
+		CartItem cartItem = map.get(id);
+		
+		cartItem.setQuantity(quantity);
+		
+		return cartItem;
+	}
+	@Override
+	public CartItem update2(Long id, int quantity1) {
+		Collection<CartItem> cartItems = map.values();
+		for (CartItem cartItemss : cartItems) {
+			cartItemss = map.get(id);
+			cartItemss.setQuantity(quantity1);
+		}
+		
+		
+		return (CartItem) cartItems;
+	}
+	@Override
+	public CartItem update3(Long id, int quantity, Product product) {
+		CartItem cartItem = map.get(id);
+		
+			cartItem.setQuantity(quantity);
+			if (cartItem.getQuantity()>product.getQuantity()) {
+				cartItem.setQuantity(product.getQuantity());
+			}
+		return cartItem;
+	}
 	@Override
 	public void remove(CartItem item) {
 
 		map.remove(item.getId());
 
+	}
+	@Override
+	public void getId(CartItem item) {
+		map.get(item.getId());
 	}
 
 	@Override
@@ -47,7 +102,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public void clear() {
 		map.clear();
 	}
-
+	
 	@Override
 	public double getAmount() {
 		return map.values().stream().mapToDouble(item -> item.getQuantity() * item.getUnitPrice()).sum();

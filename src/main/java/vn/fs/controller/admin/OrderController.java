@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.fs.dto.OrderExcelExporter;
@@ -90,14 +91,15 @@ public class OrderController {
 		return new ModelAndView("admin/editOrder", model);
 	}
 
-	@RequestMapping("/order/cancel/{order_id}")
-	public ModelAndView cancel(ModelMap model, @PathVariable("order_id") Long id) {
+	@RequestMapping("/order/cancel/{order_id}/{LyDoHuy}")
+	public ModelAndView cancel(ModelMap model, @PathVariable("order_id") Long id,@PathVariable("LyDoHuy") String LyDoHuy ) {
 		Optional<Order> o = orderRepository.findById(id);
 		if (o.isEmpty()) {
 			return new ModelAndView("forward:/admin/orders", model);
 		}
 		Order oReal = o.get();
 		oReal.setStatus((short) 3);
+		oReal.setLyDo(LyDoHuy);
 		orderRepository.save(oReal);
 
 		return new ModelAndView("forward:/admin/orders", model);

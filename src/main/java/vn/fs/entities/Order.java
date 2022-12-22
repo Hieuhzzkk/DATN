@@ -19,10 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author DongTHD
- *
- */
+
 @SuppressWarnings("serial")
 @Data
 @AllArgsConstructor
@@ -39,6 +36,9 @@ public class Order implements Serializable {
 	private Double amount;
 	private String address;
 	private String phone;
+	
+
+	private String lyDo;
 	private int status;
 
 	@OneToMany(mappedBy = "order")
@@ -111,5 +111,11 @@ public class Order implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public String getLyDo() {
+		return lyDo;
+	}
 
+	public void setLyDo(String lyDo) {
+		this.lyDo = lyDo;
+	}
 }

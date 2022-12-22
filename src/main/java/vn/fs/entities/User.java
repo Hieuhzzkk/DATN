@@ -19,10 +19,7 @@ import javax.persistence.UniqueConstraint;
 
 import javax.persistence.JoinColumn;
 
-/**
- * @author DongTHD
- *
- */
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -37,6 +34,8 @@ public class User implements Serializable{
 	private String avatar;
 	@Temporal(TemporalType.DATE)
 	private Date registerDate;
+	private String sdt;
+	private String address;
 	private Boolean status;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -51,8 +50,9 @@ public class User implements Serializable{
 		super();
 	}
 
-	public User(Long userId, String name, String email, String password, String avatar, Date registerDate,
-			Boolean status, Collection<Role> roles) {
+	
+	public User(Long userId, String name, String email, String password, String avatar, Date registerDate, String sdt,
+			String address, Boolean status, Collection<Role> roles) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -60,9 +60,12 @@ public class User implements Serializable{
 		this.password = password;
 		this.avatar = avatar;
 		this.registerDate = registerDate;
+		this.sdt = sdt;
+		this.address = address;
 		this.status = status;
 		this.roles = roles;
 	}
+
 
 	public Long getUserId() {
 		return userId;
@@ -115,7 +118,21 @@ public class User implements Serializable{
 	public Boolean getStatus() {
 		return status;
 	}
+	public String getSdt() {
+		return sdt;
+	}
 
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}

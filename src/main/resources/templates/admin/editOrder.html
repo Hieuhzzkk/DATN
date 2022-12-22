@@ -89,16 +89,7 @@
 						                        <th>Tổng tiền</th>
 											</tr>
 										</thead>
-										<tfoot>
-											<tr>
-												<th width="8%">STT</th>
-												<th>Sản phẩm</th>
-						                        <th>Tên sản phẩm</th>
-						                        <th>Số lượng</th>
-						                        <th>Đơn giá</th>
-						                        <th>Tổng tiền</th>
-											</tr>
-										</tfoot>
+										
 										<tbody>
 											<tr th:each="item, count : ${orderDetail}">
 						                        <td class="text-center" th:text="${count.index+1}"></td>

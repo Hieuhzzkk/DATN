@@ -15,10 +15,7 @@ import vn.fs.entities.User;
 import vn.fs.repository.OrderDetailRepository;
 import vn.fs.repository.UserRepository;
 
-/**
- * @author DongTHD
- *
- */
+
 @Controller
 public class ReportController {
 
@@ -53,7 +50,7 @@ public class ReportController {
 		List<Object[]> listReportCommon = orderDetailRepository.repoWhereCategory();
 		model.addAttribute("listReportCommon", listReportCommon);
 
-		return "admin/statistical";
+		return "admin/statiscalCate";
 	}
 
 	// Statistics of products sold by year
@@ -67,7 +64,7 @@ public class ReportController {
 		List<Object[]> listReportCommon = orderDetailRepository.repoWhereYear();
 		model.addAttribute("listReportCommon", listReportCommon);
 
-		return "admin/statistical";
+		return "admin/statiscalYear";
 	}
 
 	// Statistics of products sold by month
@@ -81,7 +78,7 @@ public class ReportController {
 		List<Object[]> listReportCommon = orderDetailRepository.repoWhereMonth();
 		model.addAttribute("listReportCommon", listReportCommon);
 
-		return "admin/statistical";
+		return "admin/statiscalMonth";
 	}
 
 	// Statistics of products sold by quarter
@@ -95,7 +92,7 @@ public class ReportController {
 		List<Object[]> listReportCommon = orderDetailRepository.repoWhereQUARTER();
 		model.addAttribute("listReportCommon", listReportCommon);
 
-		return "admin/statistical";
+		return "admin/statiscalQuy";
 	}
 
 	// Statistics by user
@@ -109,7 +106,7 @@ public class ReportController {
 		List<Object[]> listReportCommon = orderDetailRepository.reportCustommer();
 		model.addAttribute("listReportCommon", listReportCommon);
 
-		return "admin/statistical";
+		return "admin/statiscalUser";
 	}
 	
 	// end task developer by DongTHD
